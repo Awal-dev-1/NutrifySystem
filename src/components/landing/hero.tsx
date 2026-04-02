@@ -2,6 +2,7 @@
 'use client';
 
 // components/landing/hero.tsx
+import { useState, useEffect } from "react";
 import { TransitionLink } from "@/components/shared/transition-link";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/shared/logo";
@@ -10,6 +11,50 @@ import { ArrowRight, Sparkles, Camera } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function Hero() {
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isInstalled, setIsInstalled] = useState(false);
+
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (e: Event) => {
+      // Prevent the mini-infobar from appearing on mobile
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      setDeferredPrompt(e);
+    };
+
+    const handleAppInstalled = () => {
+      setIsInstalled(true);
+      setDeferredPrompt(null);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('appinstalled', handleAppInstalled);
+
+    // Check if app is already installed
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      setIsInstalled(true);
+    }
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleAppInstalled);
+    };
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) return;
+
+    // Show the install prompt
+    deferredPrompt.prompt();
+
+    // Wait for the user to respond to the prompt
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User response to the install prompt: ${outcome}`);
+
+    // We've used the prompt, and can't use it again, throw it away
+    setDeferredPrompt(null);
+  };
+
   const heroImage = PlaceHolderImages.find(
     (img) => img.id === "hero-background"
   );
@@ -99,6 +144,23 @@ export function Hero() {
               <TransitionLink href="/login">Login</TransitionLink>
             </Button>
           </motion.div>
+
+          {/* PWA Install Button - Mobile Only */}
+          {deferredPrompt && !isInstalled && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.4 }}
+              className="md:hidden w-full max-w-xs px-4"
+            >
+              <Button
+                onClick={handleInstallClick}
+                className="bg-blue-600 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 w-full text-body"
+              >
+                Install Our App
+              </Button>
+            </motion.div>
+          )}
         </div>
       </div>
     </section>
