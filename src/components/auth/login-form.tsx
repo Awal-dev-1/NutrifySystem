@@ -167,7 +167,7 @@ export function LoginForm() {
                             <AlertDialogHeader>
                                 <AlertDialogTitle>Reset Your Password</AlertDialogTitle>
                                 <AlertDialogDescription>
-                                    Enter your account's email address and we will send you a link to reset your password.
+                                    Enter your account&apos;s email address and we will send you a link to reset your password.
                                 </AlertDialogDescription>
                             </AlertDialogHeader>
                             <div className="space-y-2">

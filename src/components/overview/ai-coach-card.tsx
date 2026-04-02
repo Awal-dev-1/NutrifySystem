@@ -37,7 +37,7 @@ export const AiCoachCard = ({ data }: AiCoachCardProps) => {
                     <CardDescription>{meal.portionSize} &bull; ~{meal.calories} kcal</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-muted-foreground italic">"{meal.reason}"</p>
+                    <p className="text-sm text-muted-foreground italic">&quot;{meal.reason}&quot;</p>
                   </CardContent>
                 </Card>
               ))}

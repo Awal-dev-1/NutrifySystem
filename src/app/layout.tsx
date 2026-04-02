@@ -13,7 +13,6 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 export const metadata: Metadata = {
   title: 'Nutrify',
   description: 'A Ghana-focused smart nutrition platform to help you track your meals and achieve your health goals.',
-  manifest: '/manifest.webmanifest',
   icons: {
     icon: '/favicon.ico',
   },

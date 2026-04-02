@@ -28,7 +28,7 @@ export function GoalsStep({ onNext }: { onNext: (data: any) => void }) {
 
   return (
     <div className="w-full text-center">
-      <h2 className="text-2xl font-bold mb-6">What's your primary goal?</h2>
+      <h2 className="text-2xl font-bold mb-6">What&apos;s your primary goal?</h2>
       <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
         {goals.map((goal) => (
           <Card

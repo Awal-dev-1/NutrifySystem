@@ -214,10 +214,10 @@ const OverviewPage = () => {
                         <div className="shrink-0 p-1 sm:p-1.5 rounded-lg bg-primary/10">
                           <Clock className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
                         </div>
-                        Today's Summary
+                        Today&apos;s Summary
                       </CardTitle>
                       <CardDescription className="text-xs sm:text-sm mt-0.5">
-                        Your real-time progress towards today's goals
+                        Your real-time progress towards today&apos;s goals
                       </CardDescription>
                     </div>
                     {todayTotals.totalCalories > 0 && (

@@ -87,7 +87,7 @@ export function DayPlanner({ plannedMeals, summary, onAddMealClick, onEditMealCl
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <CardTitle className="text-base sm:text-lg font-medium flex items-center gap-2">
                   <Calendar className="h-4 w-4 text-muted-foreground shrink-0" />
-                  Today's Plan ({format(currentDate, 'MMM d')})
+                  Today&apos;s Plan ({format(currentDate, 'MMM d')})
                 </CardTitle>
                 <Badge>Today</Badge>
               </div>

@@ -113,13 +113,13 @@ export default function OnboardingPage() {
   };
 
   const stepsComponents = [
-    <WelcomeStep onNext={handleNext} />,
-    <DetailsStep onNext={handleNext} />,
-    <GoalsStep onNext={handleNext} />,
-    <PreferencesStep onNext={handleNext} />,
-    <ActivityStep onNext={handleNext} />,
-    <SummaryStep formData={formData} onFinish={handleFinish} />,
-    <LoadingStep />
+    <WelcomeStep key="welcome" onNext={handleNext} />,
+    <DetailsStep key="details" onNext={handleNext} />,
+    <GoalsStep key="goals" onNext={handleNext} />,
+    <PreferencesStep key="preferences" onNext={handleNext} />,
+    <ActivityStep key="activity" onNext={handleNext} />,
+    <SummaryStep key="summary" formData={formData} onFinish={handleFinish} />,
+    <LoadingStep key="loading" />
   ];
   
   // Render a loading state while we check the user's status to prevent UI flicker

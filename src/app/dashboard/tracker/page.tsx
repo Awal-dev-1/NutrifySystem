@@ -424,7 +424,7 @@ const Header: FC<{ onClearDay: () => void; date: Date; setDate: (date: Date) => 
                 <div className="p-2 rounded-full bg-destructive/10 shrink-0">
                   <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5 text-destructive" />
                 </div>
-                Clear today's data?
+                Clear today&apos;s data?
               </AlertDialogTitle>
               <AlertDialogDescription className="text-sm sm:text-base pt-2">
                 This will permanently delete all logged meals and water intake for this day. This action cannot be undone.
@@ -586,7 +586,7 @@ const MealSections: FC<{
   return (
     <div className="space-y-4 sm:space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-h3 font-semibold">Today's Meals</h2>
+        <h2 className="text-h3 font-semibold">Today&apos;s Meals</h2>
         {totalMealsCount > 0 && (
           <Badge variant="secondary" className="rounded-full px-3 sm:px-4 py-1 text-xs sm:text-sm">
             {totalMealsCount} {totalMealsCount === 1 ? "item" : "items"}

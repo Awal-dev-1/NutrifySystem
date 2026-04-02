@@ -419,7 +419,7 @@ export default function SearchPage() {
 
               <div className="text-center text-muted-foreground px-4">
                 <p className="text-sm">
-                  Try searching for "Banku and tilapia" or "Jollof rice with chicken"
+                  Try searching for &quot;Banku and tilapia&quot; or &quot;Jollof rice with chicken&quot;
                 </p>
               </div>
             </motion.div>

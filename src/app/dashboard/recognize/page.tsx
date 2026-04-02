@@ -448,7 +448,7 @@ export default function RecognizePage() {
             >
               <Card className="text-center shadow-lg">
                 <CardHeader>
-                  <CardTitle className="text-xl sm:text-2xl">We're not quite sure.</CardTitle>
+                  <CardTitle className="text-xl sm:text-2xl">We&apos;re not quite sure.</CardTitle>
                   <CardDescription>Which of these looks closer to your meal?</CardDescription>
                 </CardHeader>
                 <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -475,7 +475,7 @@ export default function RecognizePage() {
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>No Food Detected</AlertTitle>
             <AlertDescription className="text-sm">
-              The AI couldn't identify any food in the image. Try a clearer picture or a different angle.
+              The AI couldn&apos;t identify any food in the image. Try a clearer picture or a different angle.
               <Button
                 variant="outline"
                 onClick={() => resetState()}
