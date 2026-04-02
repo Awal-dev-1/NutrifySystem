@@ -1,0 +1,36 @@
+import { MetadataRoute } from 'next'
+
+export default function manifest(): MetadataRoute.Manifest {
+  return {
+    id: 'com.nutrify.app',
+    name: 'Nutrify',
+    short_name: 'Nutrify',
+    description: 'Your AI-powered nutrition companion for healthy eating in Ghana.',
+    start_url: '/',
+    display: 'standalone',
+    display_override: ["standalone", "window-controls-overlay"],
+    prefer_related_applications: false,
+    orientation: 'portrait',
+    background_color: '#f1f7f5',
+    theme_color: '#00b371',
+    icons: [
+      {
+        src: '/icon-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+      },
+      {
+        src: '/icon-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+        purpose: 'maskable'
+      },
+      {
+        src: '/icon-512x512-maskable.png',
+        sizes: '512x512',
+        type: 'image/png',
+        purpose: 'maskable'
+      }
+    ],
+  }
+}

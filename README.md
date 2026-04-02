@@ -1,11 +1,17 @@
-<div align="center">
+# Nutrify
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+Nutrify is a smart nutrition platform for Ghana, built with Next.js and Firebase.
 
-  <h1>Built with AI Studio</h2>
+This application helps users track their nutritional intake, discover local foods, and achieve their health goals with the help of AI-powered features.
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+## Getting Started
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+To get started, run the development server:
 
-</div>
+```bash
+npm run dev
+```
+
+Open [http://localhost:9002](http://localhost:9002) with your browser to see the result.
+
+You can start by exploring the landing page at `src/app/page.tsx`.

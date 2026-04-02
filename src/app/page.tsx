@@ -1,0 +1,28 @@
+// app/page.tsx or components/landing/landing-page.tsx
+import { Header } from "@/components/landing/header";
+import { Hero } from "@/components/landing/hero";
+import { Features } from "@/components/landing/features";
+import { HowItWorks } from "@/components/landing/how-it-works";
+import { CtaBanner } from "@/components/landing/cta-banner";
+import { Footer } from "@/components/landing/footer";
+
+export default function LandingPage() {
+  return (
+    <div className="flex min-h-screen flex-col max-md:overflow-hidden max-md:fixed max-md:inset-0">
+      <div className="hidden md:block">
+        <Header />
+      </div>
+      <main className="flex-1">
+        <Hero />
+        <div className="hidden md:block">
+          <Features />
+          <HowItWorks />
+          <CtaBanner />
+        </div>
+      </main>
+      <div className="hidden md:block">
+        <Footer />
+      </div>
+    </div>
+  );
+}

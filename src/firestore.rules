@@ -1,0 +1,116 @@
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // -------------------------------------------------------------------------
+    // Helper Functions
+    // -------------------------------------------------------------------------
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Validates that critical, immutable fields are not changed during an update.
+    function areImmutableFieldsUnchanged() {
+      return request.resource.data.id == resource.data.id
+          && request.resource.data.email == resource.data.email
+          && request.resource.data.createdAt == resource.data.createdAt;
+    }
+
+    // Performs basic validation on the data being written in an update.
+    function isValidUserUpdate() {
+        let data = request.resource.data;
+        let profile = data.get('profile', {});
+        let goals = data.get('goals', {});
+
+        // Validate name exists and is a non-empty string.
+        let isNameValid = data.name is string && data.name.size() > 1;
+        
+        // Validate age if it's being updated.
+        let isAgeValid = !profile.keys().hasAny(['age']) || (profile.age is number && profile.age > 0);
+
+        // Validate calorie goal if it's being updated.
+        let isCalorieGoalValid = !goals.keys().hasAny(['dailyCalorieGoal']) || (goals.dailyCalorieGoal is number && goals.dailyCalorieGoal > 0);
+        
+        // Validate macro goals if they are being updated.
+        let isProteinGoalValid = !goals.keys().hasAny(['proteinPercentageGoal']) || (goals.proteinPercentageGoal is number && goals.proteinPercentageGoal >= 0 && goals.proteinPercentageGoal <= 100);
+        let isCarbsGoalValid = !goals.keys().hasAny(['carbsPercentageGoal']) || (goals.carbsPercentageGoal is number && goals.carbsPercentageGoal >= 0 && goals.carbsPercentageGoal <= 100);
+        let isFatGoalValid = !goals.keys().hasAny(['fatPercentageGoal']) || (goals.fatPercentageGoal is number && goals.fatPercentageGoal >= 0 && goals.fatPercentageGoal <= 100);
+
+        return isNameValid 
+            && isAgeValid 
+            && isCalorieGoalValid
+            && isProteinGoalValid
+            && isCarbsGoalValid
+            && isFatGoalValid;
+    }
+
+    // -------------------------------------------------------------------------
+    // Collection Rules
+    // -------------------------------------------------------------------------
+
+    match /users/{userId} {
+      allow get, delete: if isOwner(userId);
+      allow list: if false;
+      allow create: if isOwner(userId);
+      // Allow update if it's the onboarding completion OR a valid subsequent update.
+      allow update: if isOwner(userId) && areImmutableFieldsUnchanged() && (resource.data.onboardingCompleted == false || isValidUserUpdate());
+
+      /**
+       * @description Manages a user's private daily nutrition logs.
+       * A recursive wildcard `{docId=**}` is used to grant the owner
+       * full read/write access to this subcollection and any documents within it.
+       */
+      match /dailyLogs/{docId=**} {
+        allow read, write: if isOwner(userId);
+      }
+      
+      /**
+       * @description Manages a user's generated recommendation history.
+       * A recursive wildcard is used for simplicity and robustness.
+       */
+      match /generatedRecommendations/{docId=**} {
+        allow read, write: if isOwner(userId);
+      }
+
+      /**
+       * @description Manages AI food recognition scans.
+       * A recursive wildcard is used for simplicity and robustness.
+       */
+      match /aiScans/{docId=**} {
+         allow read, write: if isOwner(userId);
+      }
+      
+      /**
+       * @description Manages a user's private meal plans.
+       * A recursive wildcard is used for simplicity and robustness.
+       */
+      match /plannedMeals/{docId=**} {
+        allow read, write: if isOwner(userId);
+      }
+      
+      /**
+       * @description Manages a user's recent search history.
+       */
+      match /recentSearches/{docId=**} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    /**
+     * @description A global, public database of food items. This data is readable
+     *              by all authenticated users. Writes are also allowed to enable
+     *              the AI service to cache new recipes, but deletes are blocked.
+     * @path /foodItems/{foodItemId}
+     */
+    match /foodItems/{foodItemId} {
+      allow get, list, create, update: if isSignedIn();
+      allow delete: if false;
+    }
+  }
+}
