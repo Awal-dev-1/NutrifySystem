@@ -1,10 +1,9 @@
-const CACHE_NAME = 'nutrify-cache-v1';
+// v2-europe-west4
+const CACHE_NAME = 'nutrify-cache-v2';
 const urlsToCache = [
   '/',
   '/manifest.webmanifest',
   '/favicon.ico',
-  '/icon-192x192.png',
-  '/icon-512x512.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -13,6 +12,22 @@ self.addEventListener('install', (event) => {
       .then((cache) => {
         return cache.addAll(urlsToCache);
       })
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheName !== CACHE_NAME) {
+            console.log('Deleting old cache:', cacheName);
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
   );
 });
 

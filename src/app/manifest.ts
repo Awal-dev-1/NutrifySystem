@@ -2,11 +2,12 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    id: 'com.nutrify.app',
+    id: '/',
     name: 'Nutrify',
     short_name: 'Nutrify',
     description: 'Your AI-powered nutrition companion for healthy eating in Ghana.',
     start_url: '/',
+    scope: '/',
     display: 'standalone',
     display_override: ["standalone", "window-controls-overlay"],
     prefer_related_applications: false,

@@ -11,6 +11,7 @@ import { PageLoader } from '@/components/shared/page-loader';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://nutrifygh--studio-228615184-8a100.europe-west4.hosted.app'),
   title: 'Nutrify',
   description: 'A Ghana-focused smart nutrition platform to help you track your meals and achieve your health goals.',
   icons: {
