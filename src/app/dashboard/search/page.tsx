@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import {
   Search,
@@ -156,16 +156,16 @@ export default function SearchPage() {
     return () => {
       recognition.stop();
     };
-  }, [toast]);
+  }, [toast, handleSearch]);
 
   // Run search on initial query
   useEffect(() => {
     if (initialQuery && userProfile) {
       handleSearch(initialQuery);
     }
-  }, [initialQuery, userProfile]);
+  }, [initialQuery, userProfile, handleSearch]);
 
-  const handleSearch = async (query: string) => {
+  const handleSearch = useCallback(async (query: string) => {
     if (!query.trim()) {
       setResult(null);
       setError(null);
@@ -211,7 +211,7 @@ export default function SearchPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [userProfile, toast, user, db]);
 
   const handleMicClick = () => {
     if (!recognitionRef.current) {

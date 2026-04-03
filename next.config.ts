@@ -47,6 +47,15 @@ const nextConfig: NextConfig = {
       "https://6000-firebase-studio-1771932123729.cluster-lu4mup47g5gm4rtyvhzpwbfadi.cloudworkstations.dev",
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/manifest.json',
+        destination: '/manifest.webmanifest',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

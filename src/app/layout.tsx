@@ -12,10 +12,10 @@ import { ServiceWorkerProvider } from '@/components/providers/service-worker-pro
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://nutrifygh--studio-228615184-8a100.europe-west4.hosted.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://nutrifygh--studio-228615184-8a100.europe-west4.hosted.app'),
   title: 'Nutrify',
   description: 'A Ghana-focused smart nutrition platform to help you track your meals and achieve your health goals.',
-  manifest: '/manifest.webmanifest',
+  manifest: '/manifest.json',
   icons: {
     icon: [
       { url: '/favicon.ico' },
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#00b371',
+  themeColor: '#ffffff',
   viewportFit: 'cover',
 };
 
